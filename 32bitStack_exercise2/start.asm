@@ -5,8 +5,43 @@ section .data
 
 
 section .text
-    global findLowestPositiveNumber,longest_space
+    global findLowestPositiveNumber,longest_space,num_of_powers
 
+
+num_of_powers:
+    enter 0,0
+    push ebx
+    push edi
+    push esi
+    xor edi,edi
+    xor eax,eax
+    xor esi,esi
+    xor ecx,ecx
+    mov edx, [ebp + 8]
+.loop:
+    cmp ecx,dword [ebp + 12]
+    jae .end
+    mov edi,dword [edx + ecx * 4]
+.countPowers:
+    cmp esi, dword [ebp + 16]
+    jae .endCount
+    and edi,0x1
+    cmp edi,0
+    jne .skip
+    inc eax
+.skip:
+    shr edi,1
+    inc esi
+    jmp .countPowers
+.endCount:
+    inc ecx
+    xor esi,esi
+    jmp .loop
+.end:
+    pop esi
+    pop edi
+    leave
+    ret
 
 longest_space:
     enter 0,0
