@@ -5,43 +5,65 @@ section .data
 
 
 section .text
-    global findLowestPositiveNumber,longest_space,num_of_powers
+    global findLowestPositiveNumber,longest_space,num_of_powers,binstr2int,kolik_mocnin
 
-
-num_of_powers:
+kolik_mocnin:
     enter 0,0
     push ebx
-    push edi
     push esi
-    xor edi,edi
-    xor eax,eax
-    xor esi,esi
+    push edi
     xor ecx,ecx
-    mov edx, [ebp + 8]
+    xor eax,eax
+    mov edx,[ebp + 8]
+    xor ebx,ebx
+    xor esi,esi
 .loop:
+    xor ebx,ebx
     cmp ecx,dword [ebp + 12]
     jae .end
-    mov edi,dword [edx + ecx * 4]
-.countPowers:
-    cmp esi, dword [ebp + 16]
-    jae .endCount
-    and edi,0x1
-    cmp edi,0
-    jne .skip
+    mov esi,dword [edx + ecx * 4]
+.checkKBits:
+    test esi,1
+    jne .endCheck
+    inc ebx
+    shr esi,1
+    jmp .checkKBits
+.endCheck:
+    cmp ebx,dword [ebp + 16]
+    jl .dontUpdateCount
     inc eax
-.skip:
-    shr edi,1
-    inc esi
-    jmp .countPowers
-.endCount:
+.dontUpdateCount:
     inc ecx
+    jmp .loop
+.end:
+    pop edi
+    pop esi
+    pop ebx
+    leave
+    ret
+
+
+binstr2int:
+    enter 0,0
+    push esi
+    xor eax,eax
+    xor ecx,ecx
     xor esi,esi
+    mov edx,dword [ebp + 8]
+.loop:
+    cmp byte [edx + esi],0
+    je .end
+    movzx ecx,byte [edx + esi]
+    shl eax,1
+    sub ecx,'0'
+    or eax,ecx
+    inc esi
     jmp .loop
 .end:
     pop esi
-    pop edi
     leave
     ret
+
 
 longest_space:
     enter 0,0
