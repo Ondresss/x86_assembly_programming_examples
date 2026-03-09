@@ -5,17 +5,17 @@
     <option name="linkedExternalProjectsSettings">
       <MakefileProjectSettings>
         <option name="cleanTarget" value="all" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/32bitStack_exercise2" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/advancedInstructionsExamples" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/32bitStack_exercise2" />
+            <option value="$PROJECT_DIR$/advancedInstructionsExamples" />
           </set>
         </option>
         <option name="version" value="2" />
       </MakefileProjectSettings>
     </option>
   </component>
-  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/32bitStack_exercise2">
+  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/advancedInstructionsExamples">
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
 </project>
