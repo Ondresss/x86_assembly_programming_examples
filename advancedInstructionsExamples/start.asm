@@ -5,7 +5,114 @@ section .data
 
 
 section .text
-    global suma_int,upperPalindrom,mocniny,int2binstr
+    global suma_int,upperPalindrom,mocniny,int2binstr,division,l_bit_shift,enc_dec,bit_mirror,mocniny2
+
+
+
+mocniny2:
+    enter 0,0
+    push ebx
+    push edi
+    xor ecx,ecx
+    mov eax,dword [ ebp + 8 ]
+    mov edi, dword [ebp + 16 ]
+
+    mov ebx, eax
+.fillArr:
+    cmp ecx,dword [ebp + 12]
+    jae .end
+    imul ebx
+    jo .end
+    mov [ edi + ecx * 4 ],eax
+    inc ecx
+    jmp .fillArr
+.end:
+    pop edi
+    pop ebx
+    leave
+    ret
+
+l_bit_shift:
+    enter 0,0
+    mov ecx,[ ebp + 16 ]
+    mov eax,[ ebp + 8 ]
+    mov edx, [ebp + 12 ]
+.loop:
+    shl eax,1
+    rcl edx,1
+    loop .loop
+.end:
+    leave
+    ret
+
+
+enc_dec:
+    enter 0,0
+    push esi
+    xor esi,esi
+    xor ecx,ecx
+    mov edx ,dword [ebp + 8]
+.loop:
+    cmp byte [edx + ecx],0
+    je .end
+    mov al,byte [edx + ecx]
+.rotateLoop:
+    cmp esi,dword [ebp + 12]
+    jae .endRotateLoop
+    ror al,1
+    inc esi
+    jmp .rotateLoop
+.endRotateLoop:
+    mov byte [edx + ecx],al
+    xor esi,esi
+    xor eax,eax
+    inc ecx
+    jmp .loop
+.end:
+    pop esi
+    leave
+    ret
+
+
+
+bit_mirror:
+    enter 0,0
+    xor eax,eax
+    mov dl, byte [ebp + 8]
+.reverseLowerByte:
+    cmp ecx,8
+    jae .reverseFinished
+    shr dl,1
+    rcl al,1
+    inc ecx
+    jmp .reverseLowerByte
+.reverseFinished:
+    leave
+    ret
+
+
+
+
+division:
+    enter 0,0
+    push ebx
+    xor ecx,ecx
+    mov ebx,dword [ ebp + 8 ]
+.divLoop:
+    xor edx,edx
+    cmp ecx,dword [ ebp + 12 ]
+    jae .end
+    mov eax, dword [ ebx + ecx * 4 ]
+    cdq
+    idiv dword [ebp + 16 ]
+    mov dword [ ebx + ecx * 4 ],eax
+    inc ecx
+    jmp .divLoop
+.end:
+    pop ebx
+    leave
+    ret
+
 
 int2binstr:
     enter 0,0

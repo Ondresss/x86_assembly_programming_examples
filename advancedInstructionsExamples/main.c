@@ -1,10 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 long long suma_int( int *pole, int N );
 void upperPalindrom (int* num);
 void mocniny( int *pole, int N, int K );
 void int2binstr( int num, char *str, int *table );
+void division(int* pole,int N,int K);
+long long l_bit_shift( long long num, int okolik );
+void enc_dec( char *str, int N );
+char bit_mirror( char num );
+void mocniny2( int X, int N, int *pole );
 int main(void) {
     int finta_bin[] = {
         0x30303030,
@@ -25,21 +31,30 @@ int main(void) {
         0x31313131
     };
     int arr[] = {1111111111,1111111111,1111111111,1111111111,1111111111,1111111111,1111111111,1111111111,1111111111};
-    int mocninyNums[] = { 8,16,32 };
-    long long val = suma_int(arr,9);
-    printf("%lld\n",val);
-    int toPalindromNum = 0x1357;
-    upperPalindrom(&toPalindromNum);
-    printf("%x\n",toPalindromNum);
+    long long shiftedNum = l_bit_shift(0x8888888888,1);
+    printf("%llX\n",shiftedNum);
+    char toDecode[] = "ABC";
+    for (int i = 0; i < strlen(toDecode); i++) {
+        printf("%02X",toDecode[i]);
+    }
+    printf("\n");
+    enc_dec(toDecode,3);
+    for (int i = 0; i < strlen(toDecode); i++) {
+        printf("%02X",toDecode[i]);
+    }
 
-    mocniny(mocninyNums,3,2);
-    for (int i = 0; i < 3; ++i) {
-        printf("%d ",mocninyNums[i]);
+    printf("\n");
+    for (int i = 32; i <= 127; i++) {
+        unsigned char ret = bit_mirror(i);
+        printf("%08b  %08b\n",(unsigned char)i,ret);
+    }
+
+    int numsToPowers[4];
+    mocniny2(2,4,numsToPowers);
+    for (int i = 0; i < 4; i++) {
+        printf("%d ",numsToPowers[i]);
     }
     printf("\n");
 
-    char str[ 128 ] = {0};
-    int2binstr( 0x123, str, finta_bin );
-    printf( "%s\n", str );
     exit(EXIT_SUCCESS);
 }
