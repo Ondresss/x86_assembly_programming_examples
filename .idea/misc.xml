@@ -5,7 +5,7 @@
     <option name="linkedExternalProjectsSettings">
       <MakefileProjectSettings>
         <option name="cleanTarget" value="all" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/chainInstructionsExamples" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/64bitModeExamples" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/chainInstructionsExamples" />
@@ -15,7 +15,7 @@
       </MakefileProjectSettings>
     </option>
   </component>
-  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/chainInstructionsExamples">
+  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/64bitModeExamples">
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
 </project>
