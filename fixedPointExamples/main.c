@@ -70,6 +70,21 @@ void printFixedManual(long num, int shift,int D) {
     }
     printf("\n");
 }
+void printFixedManual2(long num, int shift,int D) {
+
+    unsigned long fractionalPart = num >> shift;
+    long base = 1;
+    long curFrac = fractionalPart;
+    for (int i = 0; i < D; i++) {
+        if (curFrac & 0x1) base *= 2;
+        double res = 1/ base;
+        printf("%f.", res);
+        fractionalPart >>= 1;
+    }
+    printf("%ld", base);
+    printf("\n");
+}
+
 
 
 int main(void) {
@@ -80,6 +95,6 @@ int main(void) {
     long sinRes = sin_fixed(PI2Fixed, shift);
     double res = fromFixed(sinRes, shift);
 
-    printFixedManual(0x18000000,shift,8);
+    printFixedManual2(0x18000000,shift,8);
     return 0;
 }
